@@ -1,0 +1,9 @@
+{% extends "RIEVS/base.html" %}
+
+{% block content %}
+    <h1>{{ publication.title }}</h1>
+
+    <p>{{ publication.text }}</p>
+
+    <img src="{{publication.image.url}}" alt="imagem" width="500rem">
+{% endblock content %}

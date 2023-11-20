@@ -1,0 +1,9 @@
+{% extends "RIEVS/base.html" %}
+
+{% block content %}
+<form action="{% url 'new_publication' topic.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Criar publicação</button>
+</form>
+{% endblock content %}
