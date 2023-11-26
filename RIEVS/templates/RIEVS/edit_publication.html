@@ -1,0 +1,11 @@
+{% extends "RIEVS/base.html" %}
+
+{% block content %}
+<p>Editar a publicação</p>
+
+<form action="{% url 'edit_publication' publication.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Salvar alterações</button>
+</form>
+{% endblock content %}

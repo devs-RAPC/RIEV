@@ -1,0 +1,11 @@
+{% extends "RIEVS/base.html" %}
+
+{% block content %}
+<p>Editar o tópico</p>
+
+<form action="{% url 'edit_topic' topic.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Salvar alterações</button>
+</form>
+{% endblock content %}

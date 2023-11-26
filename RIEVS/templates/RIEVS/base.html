@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIEV</title>
-</head>
-<body>
-    <a href="{% url 'index' %}">Inicio</a> -
-    {% if user.is_authenticated %}
-        <a href="{% url 'new_topic' %}">Novo tópico</a> -
-        <a href="{% url 'logout' %}">logout</a> -
-    {% else %}
-        <a href="{% url 'login' %}">login</a>
 
-    {% endif %}
-    {% block content %}{% endblock content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIEV</title>
+</head>
+
+<body>
+  <a href="{% url 'index' %}">Inicio</a> -
+  {% if user.is_authenticated %}
+  <a href="{% url 'new_topic' %}">Novo tópico</a> -
+  <a href="{% url 'logout' %}">logout</a> -
+  {% else %}
+  <a href="{% url 'login' %}">login</a>
+
+  {% endif %}
+  {% block content %}{% endblock content %}
 </body>
+
 </html>

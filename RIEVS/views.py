@@ -78,3 +78,60 @@ def new_publication(request, topic_id):
     context = {'topic': topic,
                'form': form}
     return render(request, 'RIEVS/new_publication.html', context)
+
+
+def edit_topic(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
+
+    if request.method != 'POST':
+        form = TopicForm(instance=topic)
+
+    else:
+        form = TopicForm(instance=topic, data=request.POST)
+        if form.is_valid:
+            form.save()
+            return HttpResponseRedirect(reverse('index'))
+
+    context = {'form': form,
+               'topic': topic}
+
+    return render(request, 'RIEVS/edit_topic.html', context)
+
+
+def edit_publication(request, publication_id):
+    publication = Publication.objects.get(id=publication_id)
+    topic = publication.topic
+
+    if request.method != 'POST':
+        form = PublicationForm(instance=publication)
+
+    else:
+        form = PublicationForm(instance=publication,
+                               data=request.POST, files=request.FILES)
+        if form.is_valid:
+            form.save()
+            return HttpResponseRedirect(reverse('topic', args=[topic.id]))
+
+    context = {'form': form,
+               'topic': topic,
+               'publication': publication
+               }
+
+    return render(request, 'RIEVS/edit_publication.html', context)
+
+
+def delete_topic(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
+
+    topic.delete()
+
+    return HttpResponseRedirect(reverse('index'))
+
+
+def delete_publication(request, publication_id):
+    publication = Publication.objects.get(id=publication_id)
+    topic = publication.topic
+
+    publication.delete()
+
+    return HttpResponseRedirect(reverse('topic', args=[topic.id]))

@@ -1,19 +1,25 @@
 {% extends "RIEVS/base.html" %}
 
 {% block content %}
-    <h1>{{ topic.title }}</h1>
-    <a href="{% url 'new_publication' topic.id %}">Nova publicação</a>
-    <ul>
-        {% for publication in publications %}
-            <li>
-                <p>{{publication.data_added | date:'d-M-Y H:i'}}</p>
-                <a href="{% url 'publication' publication.id %}">{{publication  | linebreaks}}</a>
-            </li>
+<h1>{{ topic.title }}</h1>
+<a href="{% url 'new_publication' topic.id %}">Nova publicação</a>
+<ul>
+    {% for publication in publications %}
+    <li>
+        <hr>
+        <p>{{publication.data_added | date:'d-M-Y H:i'}}</p>
+        <a href="{% url 'publication' publication.id %}">{{publication | linebreaks}}</a>
 
-            {% empty %}
+        {% if user.is_authenticated %}
+        <a href="{% url 'edit_publication' publication.id %}">Editar</a> -
+        <a href="{% url 'delete_publication' publication.id %}">Deletar</a>
+        {% endif %}
+    </li>
 
-            <li>Não existem publicações para esse tópico</li>
+    {% empty %}
 
-        {% endfor %}
-    </ul>
+    <li>Não existem publicações para esse tópico</li>
+
+    {% endfor %}
+</ul>
 {% endblock content %}
